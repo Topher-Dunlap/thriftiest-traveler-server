@@ -4,7 +4,7 @@ const timeout = require('connect-timeout');
 const eventRouter = express.Router();
 
 eventRouter
-    .route('/predict')
+    .route('/')
     .get(timeout("6s"), (req, res) => {
         res.send("event router connected")
 

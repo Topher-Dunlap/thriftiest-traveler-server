@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c1f97f2b-40b5-4e2b-8465-b3574158f218" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/events/events-router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/events-router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/events-router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/events-api/events-router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/events-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/events-api/events-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +16,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
   </component>
   <component name="ProjectId" id="1lJXrg0Lb4eqLF3UfKkunKvbPog" />
   <component name="ProjectViewState">
@@ -51,7 +57,8 @@
       <updated>1607316369536</updated>
       <workItem from="1607316371651" duration="1244000" />
       <workItem from="1614318920594" duration="895000" />
-      <workItem from="1614394329749" duration="8031000" />
+      <workItem from="1614394329749" duration="9652000" />
+      <workItem from="1614468629718" duration="705000" />
     </task>
     <servers />
   </component>
@@ -68,17 +75,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/app.js</url>
-          <line>29</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

@@ -4,7 +4,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
-const eventRouter = require('./events/events-router')
+const eventRouter = require('./events-api/events-router')
 
 ///instantiating express
 const app = express()
@@ -28,19 +28,17 @@ app.use(
 app.use('/events', eventRouter)
 
 app.get('/', (req, res) => {
-    console.log("inside get")
     res.send("Hello, world!")
 })
 
- app.use(function errorHandler(error, req, res, next) {
-     let response
-     if (NODE_ENV === 'production') {
-         response = { error: { message: 'server error' } }
-     } else {
-         console.error(error)
-         response = { message: error.message, error }
-     }
-     res.status(500).json(response)
- })
+app.use(function errorHandler(error, req, res, next) {
+    let response
+    if (NODE_ENV === 'production') {
+        response = {error: {message: 'server error'}}
+    } else {
+        response = error
+    }
+    res.status(500).json(response)
+})
 
 module.exports = app
