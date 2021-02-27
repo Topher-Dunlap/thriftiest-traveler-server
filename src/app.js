@@ -25,9 +25,10 @@ app.use(
 );
 
 ///Router Modules
-// app.use('/events', eventRouter)
+app.use('/events', eventRouter)
 
 app.get('/', (req, res) => {
+    console.log("inside get")
     res.send("Hello, world!")
 })
 
