@@ -4,16 +4,28 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
+const eventRouter = require('./events/events-router')
 
+///instantiating express
 const app = express()
 
+///LOGGING WITH MORGAN
 const morganOption = (NODE_ENV === 'production')
     ? 'tiny'
     : 'common';
-
 app.use(morgan(morganOption))
 app.use(helmet())
-app.use(cors())
+
+//CORS POLICY
+const {CLIENT_ORIGIN} = require('./config');
+app.use(
+    cors({
+        origin: CLIENT_ORIGIN
+    })
+);
+
+///Router Modules
+// app.use('/events', eventRouter)
 
 app.get('/', (req, res) => {
     res.send("Hello, world!")
