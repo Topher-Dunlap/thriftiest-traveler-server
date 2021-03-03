@@ -6,7 +6,7 @@ const eventService = {
     predictAPICall() {
         const config = {
             method: 'get',
-            url: `https://api.predicthq.com/v1/events?category=terror%2Cdisasters&limit=1&relevance=start_around&sort=start`,
+            url: `https://api.predicthq.com/v1/events?category=terror%2Cdisasters&limit=2&relevance=start_around&sort=start`,
             headers: {
                 'Authorization': `Bearer ${apiToken}`,
                 'Content-Type': 'application/json'

@@ -7,7 +7,7 @@ let extractedEventData = [];
 
 eventRouter
     .route('/')
-    .get( (req, res) => {
+    .get((req, res) => {
         eventService.predictAPICall()
             .then(response => {
                 ///make initial event data
@@ -25,45 +25,31 @@ eventRouter
                         location: eventData.location,
                         placeId: '',
                     }
-                    eventService.eventLocation(eventObj.location)
-                        .then(response => {
-                            console.log("response.data: ", response.data.Places[0].PlaceId)
-                            eventObj.placeId = response.data.Places[0].PlaceId
-                        })
-
-                        .catch(error => {
-                        //     res.status(404)
-                        //     return res.send({error: "unable to get event locations"})
-                            console.dir(error)
-                        })
                     extractedEventData.push(eventObj)
                 });
-
-                res.send(extractedEventData)
+                console.log("extractedEventData pre promise.all: ", extractedEventData)
+                Promise.all([extractedEventData])
+                    .then((extractedEventArray) => {
+                        // console.log("promise.all extractedEventArray: ", extractedEventArray.location)
+                            extractedEventArray.map(eventObj =>
+                            // console.log("eventObj.location: ", eventObj.location),
+                            eventService.eventLocation(eventObj.location)
+                                .then(response => {
+                                    console.log("response.data: ", response.data.Places[0].PlaceId)
+                                    eventObj.placeId = response.data.Places[0].PlaceId
+                                })
+                                .catch(error => {
+                                    console.dir(error)
+                                })
+                        )
+                        console.log("appended res obj: ", extractedEventArray)
+                    });
             })
             .catch(error => {
-                // res.status(404)
-                // return res.send({error: "unable to get events"})
                 console.dir(error)
             })
+        res.send(extractedEventData)
     })
-
-// eventRouter
-//     .route('/eventLocation')
-//     .get(timeout("6s"), (req, res) => {
-//         console.dir("eventLocation GET", extractedEventData)
-//         extractedEventData.map(eventInstance =>
-//             ///extractedEventData **possible put it in a function**
-//             eventService.eventLocation(eventInstance.location)
-//                 .then(response => {
-//                     console.log("response data: ", response.data)
-//                     eventInstance.placeId = response.data.Places.PlaceId
-//
-//                 })
-//                 .catch(error => res.status(404).send({error: "unable to get event locations"}))
-//         )
-//     })
-
 
 eventRouter
     .route('/deals')
