@@ -4,7 +4,6 @@ const timeout = require('connect-timeout');
 const eventRouter = express.Router();
 
 let extractedEventData = [];
-let addedLocationArray;
 
 eventRouter
     .route('/')
@@ -28,7 +27,6 @@ eventRouter
                     }
                     eventService.eventLocation(eventObj.location)
                         .then(response => {
-                            let addedLocationArray = response
                             eventObj.placeId = response.data.Places[0].PlaceId
                         })
 
