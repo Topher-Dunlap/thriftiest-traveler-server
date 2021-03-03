@@ -29,15 +29,20 @@ eventRouter
                     eventService.eventLocation(eventObj.location)
                         .then(response => eventObj.placeId = response.data.Places.PlaceId)
                         .catch(error => {
-                            res.status(404)
-                            return res.send({error: "unable to get event locations"})
+                        //     res.status(404)
+                        //     return res.send({error: "unable to get event locations"})
+                            console.dir(error)
                         })
                     extractedEventData.push(eventObj)
                 });
                 // res.send("received event data")
+                res.send(extractedEventData)
             })
-            .catch(error => res.status(404).send({error: "unable to get events"}))
-        return res.send(extractedEventData)
+            .catch(error => {
+                // res.status(404)
+                // return res.send({error: "unable to get events"})
+                console.dir(error)
+            })
     })
 
 // eventRouter
