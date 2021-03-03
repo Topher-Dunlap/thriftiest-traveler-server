@@ -25,7 +25,7 @@ const eventService = {
                 'x-rapidapi-host': 'skyscanner-skyscanner-flight-search-v1.p.rapidapi.com',
                 'useQueryString': 'true'
             },
-        };
+        }
         return axios(config)
     },
 

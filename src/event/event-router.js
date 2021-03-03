@@ -4,7 +4,7 @@ const timeout = require('connect-timeout');
 const eventRouter = express.Router();
 
 let extractedEventData = [];
-let eventLocation;
+let addedLocationArray;
 
 eventRouter
     .route('/')
@@ -27,16 +27,21 @@ eventRouter
                         placeId: '',
                     }
                     eventService.eventLocation(eventObj.location)
-                        .then(response => eventObj.placeId = response.data.Places.PlaceId)
+                        .then(response => {
+                            let addedLocationArray = response
+                            eventObj.placeId = response.data.Places[0].PlaceId
+                        })
+
                         .catch(error => {
                         //     res.status(404)
                         //     return res.send({error: "unable to get event locations"})
                             console.dir(error)
                         })
                     extractedEventData.push(eventObj)
+
                 });
-                // res.send("received event data")
-                res.send(extractedEventData)
+
+                // res.send(extractedEventData)
             })
             .catch(error => {
                 // res.status(404)
