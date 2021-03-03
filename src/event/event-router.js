@@ -41,7 +41,7 @@ eventRouter
 
                 });
 
-                // res.send(extractedEventData)
+                res.send(extractedEventData)
             })
             .catch(error => {
                 // res.status(404)
