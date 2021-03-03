@@ -4,7 +4,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
-const eventRouter = require('./events-api/events-router')
+const eventRouter = require('./event/event-router')
 
 ///instantiating express
 const app = express()
@@ -17,15 +17,16 @@ app.use(morgan(morganOption))
 app.use(helmet())
 
 //CORS POLICY
-const {CLIENT_ORIGIN} = require('./config');
-app.use(
-    cors({
-        origin: CLIENT_ORIGIN
-    })
-);
+app.use(cors())
+// const {CLIENT_ORIGIN} = require('./config');
+// app.use(
+//     cors({
+//         origin: CLIENT_ORIGIN
+//     })
+// );
 
 ///Router Modules
-app.use('/events', eventRouter)
+app.use('/event', eventRouter)
 
 app.get('/', (req, res) => {
     res.send("Hello, world!")

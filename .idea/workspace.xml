@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c1f97f2b-40b5-4e2b-8465-b3574158f218" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/event/event-router.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/event/event-service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/events/events-router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/events-api/events-router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/events/events-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/events-api/events-service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events-api/events-router.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events-api/events-service.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,12 +39,16 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Node.js.event-router.js">
     <configuration name="app.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/app.js" working-dir="$PROJECT_DIR$/src">
+      <method v="2" />
+    </configuration>
+    <configuration name="event-router.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/event/event-router.js" working-dir="$PROJECT_DIR$/src/event">
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Node.js.event-router.js" />
         <item itemvalue="Node.js.app.js" />
       </list>
     </recent_temporary>
@@ -58,7 +64,9 @@
       <workItem from="1607316371651" duration="1244000" />
       <workItem from="1614318920594" duration="895000" />
       <workItem from="1614394329749" duration="9652000" />
-      <workItem from="1614468629718" duration="705000" />
+      <workItem from="1614468629718" duration="8194000" />
+      <workItem from="1614491720842" duration="2053000" />
+      <workItem from="1614576944185" duration="30273000" />
     </task>
     <servers />
   </component>
