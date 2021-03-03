@@ -22,11 +22,12 @@ eventRouter
                         country: eventData.country,
                         description: eventData.description,
                         brand_safe: eventData.brand_safe,
-                        location: [eventData.location[1], eventData.location[0]], ///values in location array need to be swapped for skyscanner GET
+                        location: eventData.location,
                         placeId: '',
                     }
                     eventService.eventLocation(eventObj.location)
                         .then(response => {
+                            console.log("response.data: ", response.data.Places[0].PlaceId)
                             eventObj.placeId = response.data.Places[0].PlaceId
                         })
 
@@ -36,7 +37,6 @@ eventRouter
                             console.dir(error)
                         })
                     extractedEventData.push(eventObj)
-
                 });
 
                 res.send(extractedEventData)
