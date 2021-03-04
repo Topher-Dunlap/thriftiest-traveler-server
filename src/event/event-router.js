@@ -27,61 +27,59 @@ eventRouter
                     }
                     extractedEventData.push(eventObj)
                 });
-                console.log("extractedEventData pre promise.all: ", extractedEventData)
-                Promise.all([extractedEventData])
-                    .then((extractedEventArray) => {
-                        // console.log("promise.all extractedEventArray: ", extractedEventArray.location)
-                            extractedEventArray.map(eventObj =>
-                            // console.log("eventObj.location: ", eventObj.location),
-                            eventService.eventLocation(eventObj.location)
-                                .then(response => {
-                                    console.log("response.data: ", response.data.Places[0].PlaceId)
-                                    eventObj.placeId = response.data.Places[0].PlaceId
-                                })
-                                .catch(error => {
-                                    console.dir(error)
-                                })
-                        )
-                        console.log("appended res obj: ", extractedEventArray)
-                    });
+                return extractedEventData
+            })
+            .then(extractedEventData => {
+                extractedEventData.map(async eventObj =>
+                    await eventService.eventLocation(eventObj.location)
+                        .then(response => {
+                            eventObj.placeId = response.data.Places[0].PlaceId
+                        })
+                        .catch(error => {
+                            eventObj.placeId = "this destination has no airports nearby"
+                        })
+                )
             })
             .catch(error => {
-                console.dir(error)
+                console.log("error catch: ", error)
             })
-        res.send(extractedEventData)
+        res.json(extractedEventData)
     })
 
 eventRouter
     .route('/deals')
     .get(timeout("6s"), (req, res) => {
         ///set user location
-        const userLocationData = {
-            location: req.query.userlocation
-        }
+        // const userLocationData = {
+        //     location: req.query.userlocation
+        // }
 
+
+        ///set user location
+        const userLocationData = {
+            location: "minneapolis"
+        };
+        ///filter events of places with no airports
+        extractedEventData.filter(obj => obj.placeId !== "this destination has no airports nearby");
+        ///find flight information for event locations
         extractedEventData.map((eventInstance, idx) =>
             eventService.flightPrices(extractedEventData, userLocationData)
-                .then(function (eventInstance) {
-
-                    let price = eventInstance.data.Quotes.MinPrice;
-                    let direct = eventInstance.data.Quotes.Direct;
-                    let departureDate = eventInstance.data.Quotes.OutboundLeg.DepartureDate;
-                    let carriersName = eventInstance.data.Carriers.Name;
-                    let places = eventInstance.data.Places;
-
+                .then(eventInstance => {
                     Object.assign(extractedEventData[idx],
-                        {price: price},
-                        {direct: direct},
-                        {departureDate: departureDate},
-                        {carriersName: carriersName},
-                        {places: places},
+                        {price: eventInstance.data.Quotes.MinPrice},
+                        {direct: eventInstance.data.Quotes.Direct},
+                        {departureDate: eventInstance.data.Quotes.OutboundLeg.DepartureDate},
+                        {carriersName: eventInstance.data.Carriers.Name},
+                        {places: eventInstance.data.Places},
                     )
+                    console.log("eventInstance: ", extractedEventData[idx])
                 })
                 .catch(function (error) {
-                    res.status(404).send({error: "unable to get event locations"});
+                    // res.status(404).send({error: "unable to get event locations"});
+                    console.log(error)
                 })
         )
-        res.send(extractedEventData)
+        res.json(extractedEventData)
     })
 
 

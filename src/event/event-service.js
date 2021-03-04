@@ -42,6 +42,8 @@ const eventService = {
         };
         return axios(config)
     },
+
+
 }
 
 module.exports = eventService;
