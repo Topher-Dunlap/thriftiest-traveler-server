@@ -4,6 +4,9 @@ const timeout = require('connect-timeout');
 const eventRouter = express.Router();
 
 let extractedEventData = [];
+let userLocation = {
+    location: "MSPA-sky"
+};
 
 eventRouter
     .route('/')
@@ -15,6 +18,7 @@ eventRouter
                 const eventResParse = (JSON.parse(eventResString));
                 ///data coming back as JSO already so may not need to do stringify and parse
                 let eventsArray = eventResParse.results
+                extractedEventData = []
                 eventsArray.forEach(eventData => {
                     let eventObj = {
                         title: eventData.title,
@@ -22,8 +26,8 @@ eventRouter
                         country: eventData.country,
                         description: eventData.description,
                         brand_safe: eventData.brand_safe,
-                        location: eventData.location,
-                        placeId: '',
+                        location: [eventData.location[1], eventData.location[0]],
+                        eventLocationId: '',
                     }
                     extractedEventData.push(eventObj)
                 });
@@ -33,54 +37,61 @@ eventRouter
                 extractedEventData.map(async eventObj =>
                     await eventService.eventLocation(eventObj.location)
                         .then(response => {
-                            eventObj.placeId = response.data.Places[0].PlaceId
+                            eventObj.eventLocationId = response.data.Places[0].PlaceId
                         })
                         .catch(error => {
-                            eventObj.placeId = "this destination has no airports nearby"
+                            eventObj.eventLocationId = "this destination has no airports nearby"
                         })
                 )
             })
             .catch(error => {
                 console.log("error catch: ", error)
             })
-        res.json(extractedEventData)
+        res.json(extractedEventData.filter(obj => obj.eventLocationId !== "this destination has no airports nearby"))
+    })
+
+eventRouter
+    .route('/userLocation')
+    .get((req, res) => {
+        let userLocation = req.params.query;
+        eventService.eventLocation(userLocation)
+            .then(res => userLocationData.location = res.data.Places[0].PlaceId)
+            .catch(error => {
+                console.log("error catch: ", error.response.data)
+            })
     })
 
 eventRouter
     .route('/deals')
-    .get(timeout("6s"), (req, res) => {
-        ///set user location
-        // const userLocationData = {
-        //     location: req.query.userlocation
-        // }
-
-
-        ///set user location
-        const userLocationData = {
-            location: "minneapolis"
-        };
+    .get(timeout("6s"), async (req, res) => {
         ///filter events of places with no airports
-        extractedEventData.filter(obj => obj.placeId !== "this destination has no airports nearby");
+        let filteredEvents = extractedEventData.filter(obj => obj.eventLocationId !== "this destination has no airports nearby");
         ///find flight information for event locations
-        extractedEventData.map((eventInstance, idx) =>
-            eventService.flightPrices(extractedEventData, userLocationData)
-                .then(eventInstance => {
-                    Object.assign(extractedEventData[idx],
-                        {price: eventInstance.data.Quotes.MinPrice},
-                        {direct: eventInstance.data.Quotes.Direct},
-                        {departureDate: eventInstance.data.Quotes.OutboundLeg.DepartureDate},
-                        {carriersName: eventInstance.data.Carriers.Name},
-                        {places: eventInstance.data.Places},
-                    )
-                    console.log("eventInstance: ", extractedEventData[idx])
-                })
-                .catch(function (error) {
-                    // res.status(404).send({error: "unable to get event locations"});
-                    console.log(error)
-                })
+        let locationAddedArray = filteredEvents.map((eventInstance, idx) =>
+                eventService.flightPrices(eventInstance.eventLocationId, userLocation)
+                    .then(eventInstance => {
+                        Object.assign(filteredEvents[idx],
+                            {price: eventInstance.data.Quotes[0].MinPrice},
+                            {direct: eventInstance.data.Quotes[0].Direct},
+                            {departure: eventInstance.data.Quotes[0].OutboundLeg},
+                            {carriersName: eventInstance.data.Carriers[0].Name},
+                        )
+                    })
+                    .catch(function (error) {
+                        console.log(error.response)
+                    }),
         )
-        res.json(extractedEventData)
+        console.log("locationAddedArray: ", locationAddedArray)
+        Promise.all(locationAddedArray)
+            .then(data => {
+                console.log("data: ", data)
+                res.json(data)
+            })
     })
 
 
 module.exports = eventRouter
+
+// Promise.all(locationAddedArray)
+//     .then(res => res.json(locationAddedArray))
+// res.json(locationAddedArray)
