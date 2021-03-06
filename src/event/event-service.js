@@ -43,6 +43,30 @@ const eventService = {
         return axios(config)
     },
 
+    // locationAddedArray(filteredEvents, userLocation) {
+    //     // let eventsWithLocation = filteredEvents.map((eventInstance, idx) =>
+    //     let eventsWithLocation = filteredEvents.map(async (eventInstance, idx) =>
+    //         await eventService.flightPrices(eventInstance.eventLocationId, userLocation)
+    //             .then(eventInstance => {
+    //                 Object.assign(filteredEvents[idx],
+    //                     {price: eventInstance.data.Quotes[0].MinPrice},
+    //                     {direct: eventInstance.data.Quotes[0].Direct},
+    //                     {departure: eventInstance.data.Quotes[0].OutboundLeg},
+    //                     {carriersName: eventInstance.data.Carriers[0].Name},
+    //                 )
+    //             })
+    //             .catch(function (error) {
+    //                 console.log(error.response)
+    //             })
+    //     )
+    //     return Promise.all(eventsWithLocation)
+    //         .then(res => {
+    //             console.log("eventsWithLocation: ", eventsWithLocation)
+    //             console.log("filteredEvents res: ", JSON.stringify(res))
+    //             res.json(res)
+    //         });
+    // },
+
 
 }
 
