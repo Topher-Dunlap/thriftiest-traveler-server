@@ -5,6 +5,8 @@ const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const eventRouter = require('./event/event-router')
+const accountRouter = require('./account/account-router')
+
 
 ///instantiating express
 const app = express()
@@ -27,6 +29,7 @@ app.use(cors())
 
 ///Router Modules
 app.use('/event', eventRouter)
+app.use('/account', accountRouter)
 
 app.get('/', (req, res) => {
     res.send("Hello, world!")
