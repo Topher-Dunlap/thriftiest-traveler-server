@@ -4,9 +4,7 @@ const timeout = require('connect-timeout');
 const eventRouter = express.Router();
 
 let extractedEventData = [{test: "test"}];
-let userLocation = {
-    location: "MSPA-sky"
-};
+let userAirport = '';
 
 eventRouter
     .route('/')
@@ -22,77 +20,89 @@ eventRouter
                 eventsArray.forEach(eventData => {
                     let eventObj = {
                         title: eventData.title,
-                        category: eventData.category,
-                        country: eventData.country,
                         description: eventData.description,
                         brand_safe: eventData.brand_safe,
                         location: [eventData.location[1], eventData.location[0]],
                         eventLocationId: '',
+                        placeName: 'City Unavailable',
+                        countryName: 'Country Unavailable',
+                        price: undefined,
+                        carrier: 'Carrier unavailable',
+                        departure: {DepartureDate: 'date n/a'}
                     }
-                    extractedEventData.push(eventObj)
+                    extractedEventData.push(eventObj);
                 });
-                return extractedEventData
+                return extractedEventData;
             })
             .then(newExtractedEventData => {
-                newExtractedEventData.map((eventObj, idx) => {
-                    eventService.eventLocation(eventObj.location)
+                let idx = 0;
+                newExtractedEventData.forEach(eventObj => {
+                    eventService.eventLocationLatLong(eventObj.location)
                         .then(response => {
-                            eventObj.eventLocationId = response.data.Places[0].PlaceId
+                            eventObj.eventLocationId = response.data.Places[0].PlaceId;
+                            eventObj.placeName = response.data.Places[0].PlaceName;
+                            eventObj.countryName = response.data.Places[0].CountryName;
+                            idx++;
                             if (idx === newExtractedEventData.length - 1) {
-                                res.json(extractedEventData.filter(obj => obj.eventLocationId !== "this destination has no airports nearby"))
+                                res.json(extractedEventData.filter(obj => obj.eventLocationId !== "this destination has no airports nearby"));
                             }
                         })
                         .catch(error => {
-                            eventObj.eventLocationId = "this destination has no airports nearby"
+                            eventObj.eventLocationId = "this destination has no airports nearby";
+                            idx++;
                             if (idx === newExtractedEventData.length - 1) {
-                                res.json(extractedEventData.filter(obj => obj.eventLocationId !== "this destination has no airports nearby"))
+                                res.json(extractedEventData.filter(obj => obj.eventLocationId !== "this destination has no airports nearby"));
                             }
                         })
                 })
             })
             .catch(error => {
-                console.log("error catch: ", error)
-            })
-    })
-
-eventRouter
-    .route('/userLocation')
-    .get((req, res) => {
-        let userLocation = req.params.query;
-        eventService.eventLocation(userLocation)
-            .then(res => userLocationData.location = res.data.Places[0].PlaceId)
-            .catch(error => {
-                console.log("error catch: ", error.response.data)
+                console.log("/ error catch: ", error);
             })
     })
 
 eventRouter
     .route('/deals')
-    .get(timeout("6s"), (req, res) => {
-
-        let filteredEvents = extractedEventData.filter(obj => obj.eventLocationId !== "this destination has no airports nearby");
-
+    .get((req, res) => {
+        let filteredEvents = extractedEventData;
         new Promise((resolve, reject) => {
-            filteredEvents.map((eventInstance, idx) => {
-                eventService.flightPrices(eventInstance.eventLocationId, userLocation)
+            let idx = 0;
+            filteredEvents.forEach(eventInstance => {
+                eventService.flightPrices(eventInstance.eventLocationId, userAirport)
                     .then(eventInstance => {
-                        Object.assign(filteredEvents[idx],
-                            {price: eventInstance.data.Quotes[0].MinPrice},
-                            {direct: eventInstance.data.Quotes[0].Direct},
-                            {departure: eventInstance.data.Quotes[0].OutboundLeg},
-                            {carriersName: eventInstance.data.Carriers[0].Name},
-                        )
-                        if (idx === filteredEvents.length - 1) {
-                            // console.log("filteredEvents before: ", filteredEvents)
-                            filteredEvents = filteredEvents.filter(obj => !!obj.price);
-                            // console.log("filteredEvents: ", filteredEvents)
-                            resolve()
+                        // console.log("eventInstance: ", idx, eventInstance.data)
+                        if (eventInstance.data.Quotes.length > 0) {
+                            // console.log("idx inside API call, IF: ", idx)
+                            Object.assign(filteredEvents[idx],
+                                {price: eventInstance.data.Quotes[0].MinPrice},
+                                {departure: eventInstance.data.Quotes[0].OutboundLeg},
+                                {carriersName: eventInstance.data.Carriers[0].Name},
+                            )
+                            eventService.flightPricesConditional(idx, filteredEvents, resolve);
+                            idx++;
+                        } else {
+                            eventService.flightPricesConditional(idx, filteredEvents, resolve);
+                            idx++;
                         }
                     })
-                    .catch(error => console.log(error.response))
+                    .catch(error => console.log("/deals error catch", error));
             })
         })
-            .then(response => res.json(filteredEvents))
+            .then(response => {
+                console.log("last filteredEvents: ", filteredEvents)
+                res.json(filteredEvents)
+            })
+    })
+
+eventRouter
+    .route('/userAirport')
+    .get((req, res) => {
+        let userCity = req.query.userCity;
+        eventService.userAirportLocation(userCity)
+            .then(locationResponse => {
+                userAirport = locationResponse.data.Places[0].PlaceId;
+            })
+            .catch(error => console.log("/userAirport error catch: ", error.response.data, error.config.url));
     })
 
 module.exports = eventRouter

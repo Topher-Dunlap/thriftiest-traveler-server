@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c1f97f2b-40b5-4e2b-8465-b3574158f218" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/event/event-router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/event-router.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/event/event-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/event-service.js" afterDir="false" />
     </list>
@@ -31,6 +32,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/migrations" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
@@ -62,7 +64,8 @@
       <workItem from="1614468629718" duration="8194000" />
       <workItem from="1614491720842" duration="2053000" />
       <workItem from="1614576944185" duration="47455000" />
-      <workItem from="1614822668016" duration="41247000" />
+      <workItem from="1614822668016" duration="60434000" />
+      <workItem from="1615168855224" duration="11451000" />
     </task>
     <servers />
   </component>
