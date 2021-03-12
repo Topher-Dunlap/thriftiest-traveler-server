@@ -6,3 +6,4 @@ CREATE TABLE traveler_users (
     password TEXT NOT NULL,
     date_created TIMESTAMPTZ DEFAULT now() NOT NULL
 );
+

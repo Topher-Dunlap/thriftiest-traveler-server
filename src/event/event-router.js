@@ -89,7 +89,7 @@ eventRouter
             })
         })
             .then(response => {
-                console.log("last filteredEvents: ", filteredEvents)
+                // console.log("last filteredEvents: ", filteredEvents)
                 res.json(filteredEvents)
             })
     })

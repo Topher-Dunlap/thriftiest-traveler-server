@@ -14,7 +14,7 @@ accountRouter
         )
             .then(account => {
                 if (account) {
-                    res.status(200);
+                    res.status(200).json(account);
                 }
             })
             .catch(function (error) {
@@ -52,12 +52,16 @@ accountRouter
                         const payload = {user_id: dbUser.id}
                         res.send({
                             authToken: AuthService.createJwt(sub, payload),
+                            user_id: dbUser.id
                         })
-                        res.status(200).send({ success: "User logged in." });
+                        res.status(200).send({ success: "User logged in."});
+                    })
+                    .catch(function (error) {
+                        res.status(400).send({ error: "Something went wrong please try again" });
                     })
             })
             .catch(function (error) {
-                res.status(400).send({ error: "Something went wrong please try again" });
+                res.status(400).send(error.data);
             })
     })
 
