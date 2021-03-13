@@ -3,13 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c1f97f2b-40b5-4e2b-8465-b3574158f218" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/info.log" beforeDir="false" afterPath="$PROJECT_DIR$/info.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/event/event-router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/event-router.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/event/event-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/event/event-service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/save-flights/save-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/save-flights/save-service.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +23,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -72,6 +67,7 @@
       <workItem from="1614822668016" duration="60434000" />
       <workItem from="1615168855224" duration="11451000" />
       <workItem from="1615425636493" duration="51735000" />
+      <workItem from="1615653463239" duration="3844000" />
     </task>
     <servers />
   </component>
