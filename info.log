@@ -12,3 +12,15 @@
 {"message":"Bookmark with id 4 created.","level":"info"}
 {"message":"Bookmark with id 5 created.","level":"info"}
 {"message":"Bookmark with id 6 created.","level":"info"}
+{"message":"Flight with id 6 not found.","level":"error"}
+{"message":"Flight with id 6 not found.","level":"error"}
+{"message":"Flight with id 6 deleted.","level":"info"}
+{"message":"Flight with id 5 deleted.","level":"info"}
+{"message":"Flight with id 5 deleted.","level":"info"}
+{"message":"Flight with id 5 deleted.","level":"info"}
+{"message":"Flight with id 5 deleted.","level":"info"}
+{"message":"Flight with id 6 deleted.","level":"info"}
+{"message":"Flight with id 6 deleted.","level":"info"}
+{"message":"Flight with id 10 created.","level":"info"}
+{"message":"Flight with id 11 created.","level":"info"}
+{"message":"Flight with id 10 deleted.","level":"info"}

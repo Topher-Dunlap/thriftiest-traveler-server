@@ -16,15 +16,8 @@ const SavedFlightService = {
             })
     },
 
-    getById(knex, id) {
-        return knex
-            .from('saved_flights')
-            .select('*')
-            .where('id', id)
-            .first()
-    },
-
-    deleteSavedFlight(knex, id) {return knex('saved_flights')
+    deleteSavedFlight(knex, user_id, id) {
+        return knex('saved_flights')
         .where({ id })
         .delete()
     },
