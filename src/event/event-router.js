@@ -3,12 +3,13 @@ const eventService = require('./event-service');
 const timeout = require('connect-timeout');
 const eventRouter = express.Router();
 
-let extractedEventData = [{test: "test"}];
+// let extractedEventData = [{test: "test"}];
 let userAirport = '';
 
 eventRouter
     .route('/')
     .get((req, res) => {
+        const extractedEventData = []
         eventService.predictAPICall()
             .then(response => {
                 ///make initial event data
@@ -16,7 +17,6 @@ eventRouter
                 const eventResParse = (JSON.parse(eventResString));
                 ///data coming back as JSO already so may not need to do stringify and parse
                 let eventsArray = eventResParse.results
-                extractedEventData = []
                 eventsArray.forEach(eventData => {
                     let eventObj = {
                         title: eventData.title,
@@ -35,36 +35,15 @@ eventRouter
                 return extractedEventData;
             })
             .then(newExtractedEventData => {
-                let idx = 0;
-                newExtractedEventData.forEach(eventObj => {
-                    eventService.eventLocationLatLong(eventObj.location)
-                        .then(response => {
-                            eventObj.eventLocationId = response.data.Places[0].PlaceId;
-                            eventObj.placeName = response.data.Places[0].PlaceName;
-                            eventObj.countryName = response.data.Places[0].CountryName;
-                            idx++;
-                            if (idx === newExtractedEventData.length - 1) {
-                                res.json(extractedEventData.filter(obj => obj.eventLocationId !== "this destination has no airports nearby"));
-                            }
-                        })
-                        .catch(error => {
-                            eventObj.eventLocationId = "this destination has no airports nearby";
-                            idx++;
-                            if (idx === newExtractedEventData.length - 1) {
-                                res.json(extractedEventData.filter(obj => obj.eventLocationId !== "this destination has no airports nearby"));
-                            }
-                        })
-                })
-            })
-            .catch(error => {
-                console.log("/ error catch: ", error);
+                eventService.locationFinder(newExtractedEventData, res)
             })
     })
 
 eventRouter
     .route('/deals')
-    .get((req, res) => {
-        let filteredEvents = extractedEventData;
+    .post((req, res) => {
+        let filteredEvents = req.body;
+        // console.log("/deals: ", filteredEvents)
         new Promise((resolve, reject) => {
             let idx = 0;
             filteredEvents.forEach(eventInstance => {
@@ -85,12 +64,12 @@ eventRouter
                             idx++;
                         }
                     })
-                    .catch(error => console.log("/deals error catch", error));
+                    .catch(error => console.log("/deals error catch", error.data));
             })
         })
             .then(response => {
                 // console.log("last filteredEvents: ", filteredEvents)
-                res.json(filteredEvents)
+                res.json(filteredEvents.filter(obj => obj.price !== undefined))
             })
     })
 

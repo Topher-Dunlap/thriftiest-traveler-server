@@ -6,7 +6,7 @@ const eventService = {
     predictAPICall() {
         const config = {
             method: 'get',
-            url: `https://api.predicthq.com/v1/events?category=terror&limit=5&relevance=start_around&sort=start`,
+            url: `https://api.predicthq.com/v1/events?category=terror&limit=10&relevance=start_around&sort=start`,
             headers: {
                 'Authorization': `Bearer ${apiToken}`,
                 'Content-Type': 'application/json'
@@ -63,6 +63,29 @@ const eventService = {
             return promiseResolve();
         }
     },
+
+    locationFinder(eventData, res) {
+        let idx = 0;
+        eventData.forEach(eventObj => {
+            eventService.eventLocationLatLong(eventObj.location)
+                .then(response => {
+                    eventObj.eventLocationId = response.data.Places[0].PlaceId;
+                    eventObj.placeName = response.data.Places[0].PlaceName;
+                    eventObj.countryName = response.data.Places[0].CountryName;
+                    idx++;
+                    if (idx === eventData.length - 1) {
+                        res.json(eventData.filter(obj => obj.eventLocationId !== "this destination has no airports nearby"));
+                    }
+                })
+                .catch(error => {
+                    eventObj.eventLocationId = "this destination has no airports nearby";
+                    idx++;
+                    if (idx === eventData.length - 1) {
+                        res.json(eventData.filter(obj => obj.eventLocationId !== "this destination has no airports nearby"));
+                    }
+                })
+        })
+    }
 
 }
 

@@ -21,7 +21,6 @@ const SavedFlightService = {
         .where({ id })
         .delete()
     },
-
 }
 
 module.exports = SavedFlightService
