@@ -41,14 +41,12 @@ savedFlightRouter
         }
 
         const newFlight = {title, place_name, description, country_name, price, carrier, departure, traveler_user} = req.body;
+        let db = req.app.get('db')
         console.log("pre-insert flight")
         console.log("newFlight: ", newFlight)
         // console.log("req.app.get('db'): ", req.app.get('db'))
 
-        SavedFlightService.insertFlight(
-            req.app.get('db'),
-            newFlight
-        )
+        SavedFlightService.insertFlight(db, newFlight)
             .then(flight => {
                 console.log("inside first .then", flight)
                 logger.info(`Flight with id ${flight.id} created.`)
