@@ -54,7 +54,7 @@ savedFlightRouter
                     .location(`/${flight.id}`)
                     .json(serializeFlight(flight))
             })
-            .catch(error => console.log("/save POST catch", error.data));
+            .catch(error => console.log("/save POST catch", error));
             // .catch(next)
     })
 
