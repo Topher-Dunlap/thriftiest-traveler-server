@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c1f97f2b-40b5-4e2b-8465-b3574158f218" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/event/event-router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/event-deals/event-router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/event/event-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/event-deals/event-service.js" afterDir="false" />
-    </list>
+    <list default="true" id="c1f97f2b-40b5-4e2b-8465-b3574158f218" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -68,7 +64,7 @@
       <workItem from="1614822668016" duration="60434000" />
       <workItem from="1615168855224" duration="11451000" />
       <workItem from="1615425636493" duration="51735000" />
-      <workItem from="1615653463239" duration="19419000" />
+      <workItem from="1615653463239" duration="19691000" />
     </task>
     <servers />
   </component>
