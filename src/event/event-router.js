@@ -37,6 +37,7 @@ eventRouter
             .then(newExtractedEventData => {
                 eventService.locationFinder(newExtractedEventData, res)
             })
+            .catch(error => console.log("/location finder catch", error.data));
     })
 
 eventRouter
