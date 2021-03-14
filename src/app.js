@@ -30,7 +30,7 @@ app.use(express.json())
 // );
 
 ///Router Modules
-app.use('/event-deals', eventRouter)
+app.use('/event', eventRouter)
 app.use('/account', accountRouter)
 app.use('/save', savedFlightRouter)
 
