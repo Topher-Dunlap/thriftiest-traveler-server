@@ -39,6 +39,7 @@ savedFlightRouter
 
         const newFlight = {title, place_name, description, country_name, price, carrier, departure} = req.body;
         console.log("pre-insert flight")
+        console.log("newFlight: ", newFlight)
 
         SavedFlightService.insertFlight(
             req.app.get('db'),

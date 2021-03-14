@@ -12,7 +12,7 @@ eventRouter
         const extractedEventData = []
         eventService.predictAPICall()
             .then(response => {
-                ///make initial event data
+                ///make initial event-deals data
                 const eventResString = (JSON.stringify(response.data));
                 const eventResParse = (JSON.parse(eventResString));
                 ///data coming back as JSO already so may not need to do stringify and parse

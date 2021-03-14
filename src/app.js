@@ -4,7 +4,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
-const eventRouter = require('./event/event-router')
+const eventRouter = require('./event-deals/event-router')
 const accountRouter = require('./account/account-router')
 const savedFlightRouter = require('./save-flights/save-router')
 
@@ -30,7 +30,7 @@ app.use(express.json())
 // );
 
 ///Router Modules
-app.use('/event', eventRouter)
+app.use('/event-deals', eventRouter)
 app.use('/account', accountRouter)
 app.use('/save', savedFlightRouter)
 
