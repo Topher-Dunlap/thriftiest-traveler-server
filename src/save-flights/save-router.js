@@ -23,7 +23,10 @@ savedFlightRouter
             req.app.get('db'),
             req.headers.user_id
         )
-            .then(savedFlights => res.json(savedFlights.map(serializeFlight)))
+            .then(savedFlights => {
+                res.json(savedFlights.map(serializeFlight))
+                console.log("save GET: ", savedFlights)
+            })
             .catch(next)
     })
     .post(bodyParser, (req, res, next) => {
