@@ -44,13 +44,13 @@ eventRouter
     .route('/deals')
     .post((req, res) => {
         let filteredEvents = req.body;
-        console.log("deals filteredEvents", filteredEvents)
+        // console.log("deals filteredEvents", filteredEvents)
         new Promise((resolve, reject) => {
             let idx = 0;
             filteredEvents.forEach(eventInstance => {
                 eventService.flightPrices(eventInstance.eventLocationId, userAirport)
                     .then(eventInstance => {
-                        console.log("deals flightPrices", eventInstance)
+                        // console.log("deals flightPrices", eventInstance)
                         if (eventInstance.data.Quotes.length > 0) {
                             Object.assign(filteredEvents[idx],
                                 {price: eventInstance.data.Quotes[0].MinPrice},
@@ -68,7 +68,7 @@ eventRouter
             })
         })
             .then(response => {
-                console.log("last filteredEvents: ", filteredEvents)
+                // console.log("last filteredEvents: ", filteredEvents)
                 res.json(filteredEvents.filter(obj => obj.price !== undefined))
             })
             .catch(error => console.log("/deals error catch", error));
@@ -76,7 +76,7 @@ eventRouter
 
 eventRouter
     .route('/userAirport')
-    .get(timeout ('10s'), (req, res) => {
+    .get(timeout ('6s'), (req, res) => {
         let userCity = req.query.userCity;
         eventService.userAirportLocation(userCity)
             .then(locationResponse => {
