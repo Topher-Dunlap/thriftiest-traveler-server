@@ -1,13 +1,12 @@
 const express = require('express');
 const savedFlightRouter = express.Router();
 const logger = require('../logger');
-const uuid = require('uuid/v4');
+// const uuid = require('uuid/v4');
 const bodyParser = express.json();
 const SavedFlightService = require('./save-service');
 const xss = require('xss');
 
 const serializeFlight = flight => ({
-    id: flight.id,
     price: xss(flight.price),
     title: xss(flight.title),
     carrier: xss(flight.carrier),
@@ -41,7 +40,7 @@ savedFlightRouter
             }
         }
 
-        const newFlight = { id: uuid(), title, place_name, description, country_name, price, carrier, departure, traveler_user} = req.body;
+        const newFlight = {title, place_name, description, country_name, price, carrier, departure, traveler_user} = req.body;
         let db = req.app.get('db')
         console.log("pre-insert flight")
         console.log("newFlight: ", newFlight)
