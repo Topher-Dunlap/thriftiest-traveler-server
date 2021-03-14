@@ -79,7 +79,7 @@ eventRouter
         eventService.userAirportLocation(userCity)
             .then(locationResponse => {
                 userAirport = locationResponse.data.Places[0].PlaceId;
-                // console.log("res.data userAirport: ", locationResponse.data.Places)
+                console.log("res.data userAirport: ", locationResponse.data.Places)
             })
             .catch(error => console.log("/userAirport error catch: ", error.response.data, error.config.url));
     })
