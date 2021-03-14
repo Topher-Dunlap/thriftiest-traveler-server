@@ -74,7 +74,7 @@ eventRouter
 
 eventRouter
     .route('/userAirport')
-    .get((req, res) => {
+    .get(timeout ('6s'), (req, res) => {
         let userCity = req.query.userCity;
         eventService.userAirportLocation(userCity)
             .then(locationResponse => {
