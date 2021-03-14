@@ -44,6 +44,7 @@ eventRouter
     .route('/deals')
     .post((req, res) => {
         let filteredEvents = req.body;
+        console.log("deals filteredEvents", filteredEvents)
         new Promise((resolve, reject) => {
             let idx = 0;
             filteredEvents.forEach(eventInstance => {
