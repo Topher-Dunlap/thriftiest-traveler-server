@@ -74,11 +74,12 @@ eventRouter
 
 eventRouter
     .route('/userAirport')
-    .get(timeout ('6s'), (req, res) => {
+    .get(timeout ('10s'), (req, res) => {
         let userCity = req.query.userCity;
         eventService.userAirportLocation(userCity)
             .then(locationResponse => {
                 userAirport = locationResponse.data.Places[0].PlaceId;
+                console.log("res.data userAirport: ", res.data)
             })
             .catch(error => console.log("/userAirport error catch: ", error.response.data, error.config.url));
     })
