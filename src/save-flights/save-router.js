@@ -44,7 +44,6 @@ savedFlightRouter
         let db = req.app.get('db')
         console.log("pre-insert flight")
         console.log("newFlight: ", newFlight)
-        // console.log("req.app.get('db'): ", req.app.get('db'))
 
         SavedFlightService.insertFlight(db, newFlight)
             .then(flight => {
@@ -55,7 +54,8 @@ savedFlightRouter
                     .location(`/${flight.id}`)
                     .json(serializeFlight(flight))
             })
-            .catch(next)
+            .catch(error => console.log("/save POST catch", error.data));
+            // .catch(next)
     })
 
 savedFlightRouter
