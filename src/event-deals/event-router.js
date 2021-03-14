@@ -66,7 +66,7 @@ eventRouter
             })
         })
             .then(response => {
-                // console.log("last filteredEvents: ", filteredEvents)
+                console.log("last filteredEvents: ", filteredEvents)
                 res.json(filteredEvents.filter(obj => obj.price !== undefined))
             })
             .catch(error => console.log("/deals error catch", error));
