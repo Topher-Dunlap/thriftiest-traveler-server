@@ -3,6 +3,7 @@ const AccountService = require('./account-service');
 const path = require('path')
 const AuthService = require('../auth/auth-service');
 const jsonParser = express.json();
+const uuid = require('uuid/v4');
 const accountRouter = express.Router();
 
 accountRouter
