@@ -6,7 +6,7 @@ const SavedFlightService = require('./save-service');
 const xss = require('xss');
 
 const serializeFlight = flight => ({
-    saved_id: flight.saved_id,
+    id: flight.id,
     price: xss(flight.price),
     title: xss(flight.title),
     carrier: xss(flight.carrier),
@@ -44,10 +44,10 @@ savedFlightRouter
             newFlight
         )
             .then(flight => {
-                logger.info(`Flight with id ${flight.saved_id} created.`)
+                logger.info(`Flight with id ${flight.id} created.`)
                 res
                     .status(201)
-                    .location(`/${flight.saved_id}`)
+                    .location(`/${flight.id}`)
                     .json(serializeFlight(flight))
             })
             .catch(next)

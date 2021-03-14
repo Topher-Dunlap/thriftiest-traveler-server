@@ -1,9 +1,9 @@
 const SavedFlightService = {
-    getAllSavedFlights(knex, user_id) {
+    getAllSavedFlights(knex, id) {
         return knex
             .select('*')
             .from('saved_flights')
-            .where('traveler_user', user_id)
+            .where('traveler_user', id)
     },
 
     insertFlight(knex, newFlight) {
@@ -16,9 +16,9 @@ const SavedFlightService = {
             })
     },
 
-    deleteSavedFlight(knex, user_id, saved_id) {
+    deleteSavedFlight(knex, user_id, id) {
         return knex('saved_flights')
-        .where({ saved_id })
+        .where({ id })
         .delete()
     },
 }
