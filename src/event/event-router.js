@@ -43,15 +43,12 @@ eventRouter
     .route('/deals')
     .post((req, res) => {
         let filteredEvents = req.body;
-        // console.log("/deals: ", filteredEvents)
         new Promise((resolve, reject) => {
             let idx = 0;
             filteredEvents.forEach(eventInstance => {
                 eventService.flightPrices(eventInstance.eventLocationId, userAirport)
                     .then(eventInstance => {
-                        // console.log("eventInstance: ", idx, eventInstance.data)
                         if (eventInstance.data.Quotes.length > 0) {
-                            // console.log("idx inside API call, IF: ", idx)
                             Object.assign(filteredEvents[idx],
                                 {price: eventInstance.data.Quotes[0].MinPrice},
                                 {departure: eventInstance.data.Quotes[0].OutboundLeg},
@@ -68,7 +65,7 @@ eventRouter
             })
         })
             .then(response => {
-                // console.log("last filteredEvents: ", filteredEvents)
+                console.log("last filteredEvents: ", filteredEvents)
                 res.json(filteredEvents.filter(obj => obj.price !== undefined))
             })
     })
