@@ -28,3 +28,9 @@
 {"message":"Flight with id 13 created.","level":"info"}
 {"message":"Flight with id 13 deleted.","level":"info"}
 {"message":"departure is required","level":"error"}
+{"message":"Flight with id 14 created.","level":"info"}
+{"message":"Flight with id 14 deleted.","level":"info"}
+{"message":"Flight with id 12 deleted.","level":"info"}
+{"message":"Flight with id 11 deleted.","level":"info"}
+{"message":"Flight with id 15 created.","level":"info"}
+{"message":"Flight with id 16 created.","level":"info"}

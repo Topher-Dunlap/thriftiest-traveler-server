@@ -32,7 +32,7 @@ savedFlightRouter
     })
     .post(bodyParser, (req, res, next) => {
         /// Validate that values exist exist
-        for (const field of ['title', 'place_name', 'description', 'country_name', 'price', 'carrier', 'departure']) {
+        for (const field of ['title', 'place_name', 'description', 'country_name', 'price', 'carrier', 'departure', 'traveler_user']) {
             if (!req.body[field]) {
                 logger.error(`${field} is required`)
                 return res.status(400).json({
@@ -42,6 +42,7 @@ savedFlightRouter
         }
 
         const newFlight = { title, place_name, description, country_name, price, carrier, departure, traveler_user} = req.body;
+        console.log("user inso test", newFlight)
         let db = req.app.get('db')
         console.log("pre-insert flight")
         console.log("newFlight: ", newFlight)
