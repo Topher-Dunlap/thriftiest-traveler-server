@@ -11,7 +11,7 @@ Open endpoints require no Authentication.
 Closed endpoints require a valid Token to be included in the header of the
 request. A Token can be acquired from the Login view above.
 
-### Deals
+### Deals and Events
 Each endpoint manipulates or displays information from third part APIs that will be 
 attributed to the User signed in:
 
