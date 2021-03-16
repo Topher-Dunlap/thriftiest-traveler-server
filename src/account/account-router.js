@@ -99,6 +99,7 @@ accountRouter
                             newUser
                         )
                             .then(user => {
+                                console.log("create user res: ", user)
                                 res
                                     .status(201).send({ success: "User Account Created." })
                                     .location(path.posix.join(req.originalUrl, `/${user.id}`))

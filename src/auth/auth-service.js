@@ -21,12 +21,12 @@ const AuthService = {
         })
     },
 
-    // parseBasicToken(token) {
-    //     return Buffer
-    //         .from(token, 'base64')
-    //         .toString()
-    //         .split(':')
-    // },
+    parseBasicToken(token) {
+        return Buffer
+            .from(token, 'base64')
+            .toString()
+            .split(':')
+    },
 
     verifyJwt(token) {
         return jwt.verify(token, config.JWT_SECRET, {
