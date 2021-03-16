@@ -3,7 +3,7 @@
 Create an Account for the User if an Account for that User does
 not already exist. Each User can only have one Account.
 
-**URL** : `/api/account/create/`
+**URL** : `/account/create/`
 
 **Method** : `POST`
 

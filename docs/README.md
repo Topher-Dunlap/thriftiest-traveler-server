@@ -7,17 +7,16 @@ Open endpoints require no Authentication.
 * [Login](login.md) : `POST /account/auth/login/`
 * [Create Account](create.md) : `POST /account/create/`
 
-## Endpoints that require Authentication
-Closed endpoints require a valid Token to be included in the header of the
-request. A Token can be acquired from the Login view above.
-
 ### Deals and Events
-Each endpoint manipulates or displays information from third part APIs that will be 
+Each endpoint manipulates or displays information from third part APIs that will be
 attributed to the User signed in:
 
 * [Events](events.md) : `GET /events/`
 * [Deals](deals.md) : `GET /events/deals`
-* [User Airport](userAirport.md) : `GET /events/userAirport`
+
+## Endpoints that require Authentication
+Closed endpoints require a valid Token to be included in the header of the
+request. A Token can be acquired from the Login view above.
 
 ### Saved
 Each endpoint is related to the users saved flight deals.
