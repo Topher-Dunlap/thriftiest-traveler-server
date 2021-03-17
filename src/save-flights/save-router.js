@@ -42,22 +42,17 @@ savedFlightRouter
         }
 
         const newFlight = { title, place_name, description, country_name, price, carrier, departure, traveler_user} = req.body;
-        console.log("user inso test", newFlight)
         let db = req.app.get('db')
-        console.log("pre-insert flight")
-        console.log("newFlight: ", newFlight)
 
         SavedFlightService.insertFlight(db, newFlight)
             .then(flight => {
-                console.log("inside first .then", flight)
                 logger.info(`Flight with id ${flight.id} created.`)
                 res
                     .status(201)
                     .location(`/${flight.id}`)
                     .json(serializeFlight(flight))
             })
-            .catch(error => console.log("/save POST catch", error));
-            // .catch(next)
+            .catch(function (error) {res.status(404).send({ error: "Account does not exist" });})
     })
 
 savedFlightRouter
@@ -70,7 +65,6 @@ savedFlightRouter
         /// Remove Flight
         SavedFlightService.deleteSavedFlight(db, user_id, id)
             .then(response => {
-                console.log(response.data)
                 logger.info(`Flight with id ${id} deleted.`)
                 res.status(204).json(response.data)
 

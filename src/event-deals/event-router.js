@@ -3,7 +3,7 @@ const eventService = require('./event-service');
 const timeout = require('connect-timeout');
 const eventRouter = express.Router();
 
-// let extractedEventData = [{test: "test"}];
+
 let userAirport = '';
 
 eventRouter
@@ -37,7 +37,7 @@ eventRouter
             .then(newExtractedEventData => {
                 eventService.locationFinder(newExtractedEventData, res)
             })
-            .catch(error => console.log("/location finder catch", error.data));
+            res.status(400).send({ error: "Something went wrong loading events. Please reload the page." });
     })
 
 eventRouter

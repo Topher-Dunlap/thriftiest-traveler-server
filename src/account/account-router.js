@@ -17,9 +17,7 @@ accountRouter
                     res.status(200).json(account);
                 }
             })
-            .catch(function (error) {
-                res.status(404).send({ error: "Account does not exist" });
-            })
+            .catch(res.status(400).send({ error: "Account does not exist." }))
     })
     .post(jsonParser, (req, res, next) => {
         const {email, password} = req.body
@@ -60,9 +58,7 @@ accountRouter
                         res.status(400).send({ error: "Something went wrong please try again" });
                     })
             })
-            .catch(function (error) {
-                res.status(400).send(error.data);
-            })
+            .catch(function (error) {res.status(400).send(error.data)})
     })
 
 accountRouter
@@ -99,7 +95,6 @@ accountRouter
                             newUser
                         )
                             .then(user => {
-                                console.log("create user res: ", user)
                                 res
                                     .status(201).send({ success: "User Account Created." })
                                     .location(path.posix.join(req.originalUrl, `/${user.id}`))
