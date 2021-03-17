@@ -49,6 +49,7 @@ eventRouter
         new Promise((resolve, reject) => {
             let idx = 0;
             filteredEvents.forEach(eventInstance => {
+                console.log("deals eventInstance", eventInstance)
                 eventService.flightPrices(eventInstance.eventLocationId, userAirport)
                     .then(eventInstance => {
                         if (eventInstance.data.Quotes.length > 0) {
