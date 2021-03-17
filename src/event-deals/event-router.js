@@ -56,7 +56,6 @@ eventRouter
                             {departure: eventInstance.data.Quotes[0].OutboundLeg},
                             {carriersName: eventInstance.data.Carriers[0].Name},
                         )
-                        console.log(filteredEvent)
                         res.json(filteredEvent)
                     } else {
                         res.json("no price")
