@@ -63,7 +63,7 @@ eventRouter
                             eventService.flightPricesConditional(idx, filteredEvents, resolve);
                             idx++;
                         }
-                        res.send(eventInstance.data)
+                        // res.send(eventInstance.data)
                     })
                     .catch(error => {
                         console.log("deals error data: ",error.data)
