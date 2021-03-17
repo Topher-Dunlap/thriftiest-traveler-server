@@ -72,6 +72,8 @@ eventRouter
             })
         })
             .then(response => {
+                console.log(".then response", response)
+                console.log("filteredEvents: ", filteredEvents)
                 res.json(filteredEvents.filter(obj => obj.price !== undefined))
             })
             .catch(error => {
