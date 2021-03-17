@@ -37,8 +37,10 @@ eventRouter
             .then(newExtractedEventData => {
                 eventService.locationFinder(newExtractedEventData, res)
             })
-            res.status(400).send({ error: "Something went wrong loading events. Please reload the page." });
-    })
+            .catch(error => {
+                console.log("events error data: ",error.data)
+                res.status(400).send({ error: "Something went wrong loading events please reload the page" });
+            });    })
 
 eventRouter
     .route('/deals')
@@ -61,11 +63,11 @@ eventRouter
                             eventService.flightPricesConditional(idx, filteredEvents, resolve);
                             idx++;
                         }
-                        // res.send(eventInstance.data)
+                        res.send(eventInstance.data)
                     })
                     .catch(error => {
                         console.log("deals error data: ",error.data)
-                        res.status(400).send({ error: "Something went wrong loading events please reload the page" });
+                        res.status(400).send({ error: "Something went wrong loading deals please reload the page" });
                     });
             })
         })
