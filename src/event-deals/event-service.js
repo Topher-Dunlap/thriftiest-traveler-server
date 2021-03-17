@@ -7,7 +7,7 @@ const eventService = {
     predictAPICall() {
         const config = {
             method: 'get',
-            url: `https://api.predicthq.com/v1/events?category=terror&limit=10&relevance=start_around&sort=start`,
+            url: `https://api.predicthq.com/v1/events?category=terror&limit=20&relevance=start_around&sort=start`,
             headers: {
                 'Authorization': `Bearer ${apiToken}`,
                 'Content-Type': 'application/json'
@@ -17,7 +17,6 @@ const eventService = {
     },
 
     eventLocationLatLong(input) {
-        //working url example **DELETE** https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/US/USD/en-US/?id=47.260326,-1.577128-latlong
         const config = {
             method: 'get',
             url: `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/US/USD/en-US/?id=${input[0]},${input[1]}-latlong`,
@@ -31,7 +30,6 @@ const eventService = {
     },
 
     userAirportLocation(input) {
-        //working url example **DELETE** https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/US/USD/en-US/?id=47.260326,-1.577128-latlong
         const config = {
             method: 'get',
             url: `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/US/USD/en-US/?query=${input}`,
@@ -45,7 +43,6 @@ const eventService = {
     },
 
     flightPrices(eventLocation, userLocationData) {
-        //working url example **DELETE** https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/SFO-sky/JFK-sky/2021-04-01?sort=-price&limit=1
         const config = {
             method: 'get',
             url: `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/${userLocationData}/${eventLocation}/anytime?sort=-price&limit=1`,

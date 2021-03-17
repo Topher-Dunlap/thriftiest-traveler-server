@@ -17,7 +17,7 @@ accountRouter
                     res.status(200).json(account);
                 }
             })
-            .catch(res.status(400).send({ error: "Account does not exist." }))
+            .catch(res.status(400).send({error: "Account does not exist."}))
     })
     .post(jsonParser, (req, res, next) => {
         const {email, password} = req.body
@@ -52,13 +52,15 @@ accountRouter
                             authToken: AuthService.createJwt(sub, payload),
                             user_id: dbUser.id
                         })
-                        res.status(200).send({ success: "User logged in."});
+                        res.status(200).send({success: "User logged in."});
                     })
                     .catch(function (error) {
-                        res.status(400).send({ error: "Something went wrong please try again" });
+                        res.status(400).send({error: "Something went wrong please try again"});
                     })
             })
-            .catch(function (error) {res.status(400).send(error.data)})
+            .catch(function (error) {
+                res.status(400).send(error.data)
+            })
     })
 
 accountRouter
@@ -96,14 +98,14 @@ accountRouter
                         )
                             .then(user => {
                                 res
-                                    .status(201).send({ success: "User Account Created." })
+                                    .status(201).send({success: "User Account Created."})
                                     .location(path.posix.join(req.originalUrl, `/${user.id}`))
                                     .json(AccountService.serializeUser(user))
                             })
                     })
             })
             .catch(function (error) {
-                res.status(400).send({ error: "Something went wrong please try again" });
+                res.status(400).send({error: "Something went wrong please try again"});
             })
     })
 

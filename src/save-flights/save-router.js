@@ -1,7 +1,6 @@
 const express = require('express');
 const savedFlightRouter = express.Router();
 const logger = require('../logger');
-// const uuid = require('uuid/v4');
 const bodyParser = express.json();
 const SavedFlightService = require('./save-service');
 const xss = require('xss');
@@ -41,7 +40,16 @@ savedFlightRouter
             }
         }
 
-        const newFlight = { title, place_name, description, country_name, price, carrier, departure, traveler_user} = req.body;
+        const newFlight = {
+            title,
+            place_name,
+            description,
+            country_name,
+            price,
+            carrier,
+            departure,
+            traveler_user
+        } = req.body;
         let db = req.app.get('db')
 
         SavedFlightService.insertFlight(db, newFlight)
@@ -52,7 +60,9 @@ savedFlightRouter
                     .location(`/${flight.id}`)
                     .json(serializeFlight(flight))
             })
-            .catch(function (error) {res.status(404).send({ error: "Account does not exist" });})
+            .catch(function (error) {
+                res.status(404).send({error: "Account does not exist"});
+            })
     })
 
 savedFlightRouter
@@ -69,8 +79,6 @@ savedFlightRouter
                 res.status(204).json(response.data)
 
             })
-
-
     })
 
 module.exports = savedFlightRouter

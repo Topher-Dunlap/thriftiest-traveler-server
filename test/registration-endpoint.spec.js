@@ -73,8 +73,6 @@ describe('Users Endpoints', function () {
                         last_name: 'test last_name',
                         email: 'test@email',
                     }
-                    // console.log(userLongPassword)
-                    // console.log(userLongPassword.password.length)
                     return supertest(app)
                         .post('/account/create')
                         .send(userLongPassword)

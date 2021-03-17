@@ -56,15 +56,14 @@ eventRouter
                             {departure: eventInstance.data.Quotes[0].OutboundLeg},
                             {carriersName: eventInstance.data.Carriers[0].Name},
                         )
+                        console.log(filteredEvent)
                         res.json(filteredEvent)
-                    }
-                    else{
+                    } else {
                         res.json("no price")
                     }
                 })
-                .catch(error => console.dir(error));
-        }
-        else{
+                .catch(error => res.send(error.data));
+        } else {
             res.send("no deal")
         }
     })
