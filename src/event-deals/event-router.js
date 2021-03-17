@@ -55,6 +55,7 @@ eventRouter
                     eventService.flightPrices(eventInstance.eventLocationId, userAirport)
                         .then(eventInstance => {
                             console.log("index: ", idx)
+                            console.log("eventInstance.data.Quotes.length: ", eventInstance.data.Quotes.length)
                             if (eventInstance.data.Quotes.length > 0) {
                                 Object.assign(filteredEvents[idx],
                                     {price: eventInstance.data.Quotes[0].MinPrice},
