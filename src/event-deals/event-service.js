@@ -59,10 +59,10 @@ const eventService = {
     },
 
     flightPricesConditional(idx, array, promiseResolve) {
-        if (idx === array.length - 1) {
+        // if (idx === array.length - 1) {
             array = array.filter(obj => !!obj.price);
             return promiseResolve();
-        }
+        // }
     },
 
     locationFinder(eventData, res) {
