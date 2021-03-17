@@ -44,13 +44,11 @@ eventRouter
     .route('/deals')
     .post((req, res) => {
         let filteredEvents = req.body;
-        // console.log("deals filteredEvents", filteredEvents)
         new Promise((resolve, reject) => {
             let idx = 0;
             filteredEvents.forEach(eventInstance => {
                 eventService.flightPrices(eventInstance.eventLocationId, userAirport)
                     .then(eventInstance => {
-                        // console.log("deals flightPrices", eventInstance)
                         if (eventInstance.data.Quotes.length > 0) {
                             Object.assign(filteredEvents[idx],
                                 {price: eventInstance.data.Quotes[0].MinPrice},
@@ -64,14 +62,17 @@ eventRouter
                             idx++;
                         }
                     })
-                    .catch(error => console.log("/deals error catch", error.data));
+                    .catch(error => {
+                        res.status(400).send({ error: "Something went wrong loading events please reload the page" });
+                    });
             })
         })
             .then(response => {
-                // console.log("last filteredEvents: ", filteredEvents)
                 res.json(filteredEvents.filter(obj => obj.price !== undefined))
             })
-            .catch(error => console.log("/deals error catch", error));
+            .catch(function (error) {
+                res.status(400).send({ error: "Something went wrong loading the flight deals please wait a minute and try again" });
+            })
     })
 
 eventRouter
@@ -81,9 +82,10 @@ eventRouter
         eventService.userAirportLocation(userCity)
             .then(locationResponse => {
                 userAirport = locationResponse.data.Places[0].PlaceId;
-                // console.log("res.data userAirport: ", locationResponse.data.Places)
             })
-            .catch(error => console.log("/userAirport error catch: ", error.response.data, error.config.url));
+            .catch(function (error) {
+                res.status(400).send({ error: "Something went wrong loading the users airport" });
+            })
     })
 
 module.exports = eventRouter

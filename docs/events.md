@@ -76,7 +76,7 @@ in the server request and cannot be altered from this endpoint.
 
 ```json
 {
-  "error": "Something went wrong. Please try again or pick a different region."
+  "error": "Something went wrong. Please try again."
 }
 ```
 
