@@ -82,7 +82,7 @@ eventRouter
         eventService.userAirportLocation(userCity)
             .then(locationResponse => {
                 userAirport = locationResponse.data.Places[0].PlaceId;
-                res.send("airport established")
+                res.send(userAirport)
             })
             .catch(function (error) {
                 res.status(400).send({ error: "Something went wrong loading the users airport" });
