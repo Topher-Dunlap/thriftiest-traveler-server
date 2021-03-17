@@ -39,8 +39,9 @@ eventRouter
             })
             .catch(error => {
                 console.log("events error data: ", error)
-                res.status(400).send({ error: "Something went wrong loading events please reload the page" });
-            });    })
+                res.status(400).send({error: "Something went wrong loading events please reload the page"});
+            });
+    })
 
 eventRouter
     .route('/deals')
@@ -49,41 +50,42 @@ eventRouter
         new Promise((resolve, reject) => {
             let idx = 0;
             filteredEvents.forEach(eventInstance => {
-                console.log("deals eventInstance", eventInstance)
-                eventService.flightPrices(eventInstance.eventLocationId, userAirport)
-                    .then(eventInstance => {
-                        if (eventInstance.data.Quotes.length > 0) {
-                            Object.assign(filteredEvents[idx],
-                                {price: eventInstance.data.Quotes[0].MinPrice},
-                                {departure: eventInstance.data.Quotes[0].OutboundLeg},
-                                {carriersName: eventInstance.data.Carriers[0].Name},
-                            )
-                            eventService.flightPricesConditional(idx, filteredEvents, resolve);
-                            idx++;
-                        } else {
-                            eventService.flightPricesConditional(idx, filteredEvents, resolve);
-                            idx++;
-                        }
-                    })
-                    .catch(error => {
-                        if(error.response.status === 404){
-                            console.log("deals error statusText: ",error.response.statusText, "deals req url: ", error.response.config.url)
-                        }
-                        res.status(400).send({ error: "Something went wrong loading deals please reload the page" });
-                    });
+                if (eventInstance.eventLocationId !== '') {
+                    eventService.flightPrices(eventInstance.eventLocationId, userAirport)
+                        .then(eventInstance => {
+                            if (eventInstance.data.Quotes.length > 0) {
+                                Object.assign(filteredEvents[idx],
+                                    {price: eventInstance.data.Quotes[0].MinPrice},
+                                    {departure: eventInstance.data.Quotes[0].OutboundLeg},
+                                    {carriersName: eventInstance.data.Carriers[0].Name},
+                                )
+                                eventService.flightPricesConditional(idx, filteredEvents, resolve);
+                                idx++;
+                            } else {
+                                eventService.flightPricesConditional(idx, filteredEvents, resolve);
+                                idx++;
+                            }
+                        })
+                        .catch(error => {
+                            if (error.response.status === 404) {
+                                console.log("deals error statusText: ", error.response.statusText, "deals req url: ", error.response.config.url)
+                            }
+                            res.status(400).send({error: "Something went wrong loading deals please reload the page"});
+                        });
+                }
             })
         })
             .then(response => {
                 res.json(filteredEvents.filter(obj => obj.price !== undefined))
             })
             .catch(function (error) {
-                res.status(400).send({ error: "Something went wrong loading the flight deals please wait a minute and try again" });
+                res.status(400).send({error: "Something went wrong loading the flight deals please wait a minute and try again"});
             })
     })
 
 eventRouter
     .route('/userAirport')
-    .get(timeout ('6s'), (req, res) => {
+    .get(timeout('6s'), (req, res) => {
         let userCity = req.query.userCity;
         eventService.userAirportLocation(userCity)
             .then(locationResponse => {
@@ -91,7 +93,7 @@ eventRouter
                 res.send(userAirport)
             })
             .catch(function (error) {
-                res.status(400).send({ error: "Something went wrong loading the users airport" });
+                res.status(400).send({error: "Something went wrong loading the users airport"});
             })
     })
 
