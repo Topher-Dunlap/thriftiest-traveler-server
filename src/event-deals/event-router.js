@@ -60,13 +60,12 @@ eventRouter
                             eventService.flightPricesConditional(idx, filteredEvents, resolve);
                             idx++;
                         } else {
-                            console.log("flight prices api call: ", eventInstance)
                             eventService.flightPricesConditional(idx, filteredEvents, resolve);
                             idx++;
                         }
                     })
                     .catch(error => {
-                        console.log("deals error data: ",error.data)
+                        console.log("deals error data: ",error)
                         res.status(400).send({ error: "Something went wrong loading deals please reload the page" });
                     });
             })
