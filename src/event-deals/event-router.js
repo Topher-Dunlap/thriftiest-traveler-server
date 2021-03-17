@@ -50,6 +50,8 @@ eventRouter
         new Promise((resolve, reject) => {
             let idx = 0;
             filteredEvents.forEach(eventInstance => {
+                console.log("filteredEvents: ", filteredEvents.length)
+                console.log("idx: ", idx)
                 if (eventInstance.eventLocationId !== '') {
                     eventService.flightPrices(eventInstance.eventLocationId, userAirport)
                         .then(eventInstance => {
@@ -60,15 +62,18 @@ eventRouter
                                     {carriersName: eventInstance.data.Carriers[0].Name},
                                 )
                                 eventService.flightPricesConditional(idx, filteredEvents, resolve);
-                                idx++;
+                                idx++
+                                console.log("if added one idx", idx)
                             } else {
                                 eventService.flightPricesConditional(idx, filteredEvents, resolve);
                                 idx++;
+                                console.log("else added one idx", idx)
                             }
                         })
                         .catch(error => {res.status(400).send({error: "Something went wrong loading deals please reload the page"})});
                 }
                 idx++;
+                console.log("Last added one idx", idx)
             })
         })
             .then(response => {
