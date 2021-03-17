@@ -14,16 +14,6 @@ attributed to the User signed in:
 * [Events](events.md) : `GET /events/`
 * [Deals](deals.md) : `GET /events/deals`
 
-## Endpoints that require Authentication
-Closed endpoints require a valid Token to be included in the header of the
-request. A Token can be acquired from the Login view above.
-
-### Saved
-Each endpoint is related to the users saved flight deals.
-* [Saved GET](savedGet.md) : `GET /events/saved/`
-* [Saved POST](savedPost.md) : `POST /events/saved/`
-* [Saved DELETE](savedDelete.md) : `DELETE /events/saved/`
-
 ## Built With
 * Node.js
 * Express

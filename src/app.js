@@ -21,14 +21,6 @@ app.use(helmet())
 app.use(cors())
 app.use(express.json())
 
-//CORS POLICY
-// const {CLIENT_ORIGIN} = require('./config');
-// app.use(
-//     cors({
-//         origin: CLIENT_ORIGIN
-//     })
-// );
-
 ///Router Modules
 app.use('/event', eventRouter)
 app.use('/account', accountRouter)

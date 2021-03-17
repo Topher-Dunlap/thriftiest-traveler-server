@@ -50,7 +50,7 @@ eventRouter
             filteredEvents.forEach(eventInstance => {
                 eventService.flightPrices(eventInstance.eventLocationId, userAirport)
                     .then(eventInstance => {
-                        console.log("deals flightPrices", eventInstance)
+                        // console.log("deals flightPrices", eventInstance)
                         if (eventInstance.data.Quotes.length > 0) {
                             Object.assign(filteredEvents[idx],
                                 {price: eventInstance.data.Quotes[0].MinPrice},
@@ -81,7 +81,7 @@ eventRouter
         eventService.userAirportLocation(userCity)
             .then(locationResponse => {
                 userAirport = locationResponse.data.Places[0].PlaceId;
-                console.log("res.data userAirport: ", locationResponse.data.Places)
+                // console.log("res.data userAirport: ", locationResponse.data.Places)
             })
             .catch(error => console.log("/userAirport error catch: ", error.response.data, error.config.url));
     })
