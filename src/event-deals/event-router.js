@@ -61,6 +61,7 @@ eventRouter
                             eventService.flightPricesConditional(idx, filteredEvents, resolve);
                             idx++;
                         }
+                        res.send(eventInstance.data)
                     })
                     .catch(error => {
                         res.status(400).send({ error: "Something went wrong loading events please reload the page" });
