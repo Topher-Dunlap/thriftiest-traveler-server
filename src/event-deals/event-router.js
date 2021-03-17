@@ -64,6 +64,7 @@ eventRouter
                         res.send(eventInstance.data)
                     })
                     .catch(error => {
+                        console.log("deals error data: ",error.data)
                         res.status(400).send({ error: "Something went wrong loading events please reload the page" });
                     });
             })
