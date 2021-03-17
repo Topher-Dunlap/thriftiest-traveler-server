@@ -38,7 +38,7 @@ eventRouter
                 eventService.locationFinder(newExtractedEventData, res)
             })
             .catch(error => {
-                console.log("events error data: ",error.data)
+                console.log("events error data: ", error)
                 res.status(400).send({ error: "Something went wrong loading events please reload the page" });
             });    })
 
