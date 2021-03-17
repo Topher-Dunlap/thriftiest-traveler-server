@@ -66,7 +66,7 @@ eventRouter
                     })
                     .catch(error => {
                         if(error.response.status === 404){
-                            console.log("deals error data: ",error.response.statusText, error.response.url)
+                            console.log("deals error statusText: ",error.response.statusText, "deals req url: ", error.response.config.url)
                         }
                         res.status(400).send({ error: "Something went wrong loading deals please reload the page" });
                     });
