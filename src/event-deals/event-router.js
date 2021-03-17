@@ -50,12 +50,12 @@ eventRouter
         new Promise((resolve, reject) => {
             let idx = 0;
             filteredEvents.forEach(eventInstance => {
-                console.log("filteredEvents length: ", filteredEvents.length)
                 if (eventInstance.eventLocationId !== '') {
                     eventService.flightPrices(eventInstance.eventLocationId, userAirport)
                         .then(eventInstance => {
                             console.log("index: ", idx)
                             console.log("eventInstance.data.Quotes.length: ", eventInstance.data)
+                            console.log("eventInstance: ", eventInstance)
                             if (eventInstance.data.Quotes.length > 0) {
                                 Object.assign(filteredEvents[idx],
                                     {price: eventInstance.data.Quotes[0].MinPrice},
