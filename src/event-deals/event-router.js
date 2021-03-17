@@ -66,19 +66,15 @@ eventRouter
                                 idx++;
                             }
                         })
-                        .catch(error => {
-                            if (error.response.status === 404) {
-                                console.log("deals error statusText: ", error.response.statusText, "deals req url: ", error.response.config.url)
-                            }
-                            res.status(400).send({error: "Something went wrong loading deals please reload the page"});
-                        });
+                        .catch(error => {res.status(400).send({error: "Something went wrong loading deals please reload the page"})});
                 }
+                idx++;
             })
         })
             .then(response => {
                 res.json(filteredEvents.filter(obj => obj.price !== undefined))
             })
-            .catch(function (error) {
+            .catch(error => {
                 res.status(400).send({error: "Something went wrong loading the flight deals please wait a minute and try again"});
             })
     })
@@ -92,7 +88,7 @@ eventRouter
                 userAirport = locationResponse.data.Places[0].PlaceId;
                 res.send(userAirport)
             })
-            .catch(function (error) {
+            .catch(error => {
                 res.status(400).send({error: "Something went wrong loading the users airport"});
             })
     })
