@@ -60,10 +60,10 @@ eventRouter
                             eventService.flightPricesConditional(idx, filteredEvents, resolve);
                             idx++;
                         } else {
+                            console.log("flight prices api call: ", eventInstance)
                             eventService.flightPricesConditional(idx, filteredEvents, resolve);
                             idx++;
                         }
-                        // res.send(eventInstance.data)
                     })
                     .catch(error => {
                         console.log("deals error data: ",error.data)
