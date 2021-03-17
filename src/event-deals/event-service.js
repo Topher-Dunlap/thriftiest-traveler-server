@@ -58,13 +58,6 @@ const eventService = {
         return axios(config)
     },
 
-    flightPricesConditional(idx, array, promiseResolve) {
-        if (idx === array.length - 1) {
-            array = array.filter(obj => !!obj.price);
-            return promiseResolve();
-        }
-    },
-
     locationFinder(eventData, res) {
         let idx = 0;
         eventData.forEach(eventObj => {

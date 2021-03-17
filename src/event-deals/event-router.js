@@ -45,45 +45,28 @@ eventRouter
 
 eventRouter
     .route('/deals')
-    .post((req, res) => {
-        let filteredEvents = req.body;
-        new Promise((resolve, reject) => {
-            let idx = 0;
-            filteredEvents.forEach(eventInstance => {
-                console.log("filteredEvents: ", filteredEvents.length)
-                console.log("idx: ", idx)
-                if (eventInstance.eventLocationId !== '') {
-                    eventService.flightPrices(eventInstance.eventLocationId, userAirport)
-                        .then(eventInstance => {
-                            if (eventInstance.data.Quotes.length > 0) {
-                                Object.assign(filteredEvents[idx],
-                                    {price: eventInstance.data.Quotes[0].MinPrice},
-                                    {departure: eventInstance.data.Quotes[0].OutboundLeg},
-                                    {carriersName: eventInstance.data.Carriers[0].Name},
-                                )
-                                eventService.flightPricesConditional(idx, filteredEvents, resolve);
-                                idx++
-                                console.log("if added one idx", idx)
-                            } else {
-                                eventService.flightPricesConditional(idx, filteredEvents, resolve);
-                                idx++;
-                                console.log("else added one idx", idx)
-                            }
-                        })
-                        .catch(error => {res.status(400).send({error: "Something went wrong loading deals please reload the page"})});
-                }
-                idx++;
-                console.log("Last added one idx", idx)
-            })
-        })
-            .then(response => {
-                console.log(".then response", response)
-                console.log("filteredEvents: ", filteredEvents)
-                res.json(filteredEvents.filter(obj => obj.price !== undefined))
-            })
-            .catch(error => {
-                res.status(400).send({error: "Something went wrong loading the flight deals please wait a minute and try again"});
-            })
+    .post(timeout('10s'), (req, res) => {
+        let filteredEvent = req.body;
+        if (filteredEvent[0].eventLocationId !== '') {
+            eventService.flightPrices(filteredEvent[0].eventLocationId, userAirport)
+                .then(eventInstance => {
+                    if (eventInstance.data.Quotes.length > 0) {
+                        Object.assign(filteredEvent[0],
+                            {price: eventInstance.data.Quotes[0].MinPrice},
+                            {departure: eventInstance.data.Quotes[0].OutboundLeg},
+                            {carriersName: eventInstance.data.Carriers[0].Name},
+                        )
+                        res.json(filteredEvent)
+                    }
+                    else{
+                        res.json("no price")
+                    }
+                })
+                .catch(error => console.dir(error));
+        }
+        else{
+            res.send("no deal")
+        }
     })
 
 eventRouter
