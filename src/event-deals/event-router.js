@@ -70,6 +70,7 @@ eventRouter
                 }
                 idx++;
             })
+            return filteredEvents
         })
             .then(response => {
                 console.log(".then response", response)
