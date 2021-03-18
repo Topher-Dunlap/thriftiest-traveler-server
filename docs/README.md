@@ -26,6 +26,7 @@ attributed to the User signed in:
 * JWT
 * Service Objects
 * Morgan
+* ESLint
 
 
 ## Features
