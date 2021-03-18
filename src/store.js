@@ -2,4 +2,4 @@ const savedFlights = [
 
 ]
 
-module.exports = {savedFlights}
+module.exports = {savedFlights};
